@@ -1,0 +1,39 @@
+import dotenv from "dotenv";
+dotenv.config();
+import { app } from "./src/app.js";
+import { logger } from "./src/index.js";
+import { getHubspotClient } from "./src/configs/hubspot.config.js";
+
+// Start the server, For CI/CD deployments remove deploy.yml from .gitignore
+// npm i express axios node-cron winston winston-daily-rotate-file dotenv @mohammadsaddam-dev/hubspot-toolkit
+
+const PORT = process.env.PORT || 5000;
+
+function serverInit() {
+  try {
+    // Server is up and running
+
+    app.listen(PORT, () => {
+      logger.info(`Server running on PORT:${PORT}`);
+    });
+
+    init(); // Initialize other services and forget about them
+  } catch (error) {
+    logger.error("❌ Critical startup failure:", error);
+  }
+}
+
+serverInit();
+
+async function init() {
+  try {
+    // Initialize Hubspot Client
+    try {
+      await getHubspotClient();
+    } catch (error) {
+      logger.error("❌ HubSpot client failed to initialize:", error);
+    }
+  } catch (error) {
+    logger.error("❌ Critical startup failure:", error);
+  }
+}
