@@ -1,5 +1,8 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+dotenv.config({
+  path: path.join(process.cwd(), ".env"),
+});
 import { app } from "./src/app.js";
 import { logger } from "./src/index.js";
 import { getHubspotClient } from "./src/configs/hubspot.config.js";
