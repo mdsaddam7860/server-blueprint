@@ -18,6 +18,7 @@ function serverInit() {
 
     app.listen(PORT, () => {
       logger.info(`Server running on PORT:${PORT}`);
+      logger.info(`Environment: ${process.env.NODE_ENV}`);
     });
 
     init(); // Initialize other services and forget about them
@@ -32,7 +33,15 @@ async function init() {
   try {
     // Initialize Hubspot Client
     try {
-      await getHubspotClient();
+      const client = getHubspotClient();
+      // logger.info(
+      //   `✅ HubSpot client initialized successfully : ${JSON.stringify(
+      //     client,
+      //     null,
+      //     2
+      //   )}`
+      // );
+      logger.info(`✅ HubSpot client initialized successfully`);
     } catch (error) {
       logger.error("❌ HubSpot client failed to initialize:", error);
     }

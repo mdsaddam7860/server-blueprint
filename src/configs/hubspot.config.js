@@ -9,12 +9,8 @@ const axiosInstance = axios.create({
   },
 });
 let hubspotClient = null;
-//  hubspotClient = createClient({
-//   apiKey: process.env.HUBSPOT_API_KEY, // or ACCESS TOKEN
-//   accessToken: process.env.HUBSPOT_ACCESS_TOKEN,
-// });
 
-async function getHubspotClient() {
+function getHubspotClient() {
   if (hubspotClient) return hubspotClient;
 
   if (!hubspotClient && process.env.HUBSPOT_ACCESS_TOKEN) {
