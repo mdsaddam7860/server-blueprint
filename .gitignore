@@ -5,7 +5,6 @@
 
 # File or Folder to be ignored in all situations
 .DS_Store
-deploy.yml
 
 ### Node ###
 # Logs
