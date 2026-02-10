@@ -17,12 +17,22 @@ const customTimestamp = timestamp({
     }),
 });
 
-const consoleFormat = printf(({ level, message, timestamp, stack }) => {
-  return `[${level}] ${timestamp} - ${stack || message}`;
-});
+const consoleFormat = printf(
+  ({ level, message, timestamp, stack, ...meta }) => {
+    const metaString =
+      meta && Object.keys(meta).length
+        ? `\n${JSON.stringify(meta, null, 2)}`
+        : "";
 
-const fileFormat = printf(({ level, message, timestamp, stack }) => {
-  return `[${level}] ${timestamp} - ${stack || message}`;
+    return `[${level}] ${timestamp} - ${stack || message}${metaString}`;
+  }
+);
+
+const fileFormat = printf(({ level, message, timestamp, stack, ...meta }) => {
+  const metaString =
+    meta && Object.keys(meta).length ? ` ${JSON.stringify(meta)}` : "";
+
+  return `[${level}] ${timestamp} - ${stack || message}${metaString}`;
 });
 
 const productionLogger = () => {
@@ -104,3 +114,24 @@ const logger =
       });
 
 export { logger };
+
+/**
+ * Method to use logger for handling error
+ * 
+ * logger.error("HubSpot Axios error", {
+        status: "HubSpot Axios error",
+        response: "HubSpot Axios error",
+        method: "HubSpot Axios error",
+        url: "HubSpot Axios error",
+        headers: "HubSpot Axios error",
+      });
+
+      Working example
+      logger.error("HubSpot Axios error", {
+      status: error.response?.status,
+      response: error.response?.data,
+      method: error.config?.method,
+      url: error.config?.url,
+      headers: error.config?.headers,
+    });
+ */
