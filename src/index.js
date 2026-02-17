@@ -1,5 +1,5 @@
 import { logger } from "./utils/winston.logger.js";
-import { axiosInstance, hubspotClient } from "./configs/hubspot.config.js";
+import { getHSAxios, hubspotClient } from "./configs/hubspot.config.js";
 import {
   Throttle,
   throttle,
@@ -10,7 +10,7 @@ import {
 
 export {
   logger,
-  axiosInstance,
+  getHSAxios,
   hubspotClient,
   Throttle,
   throttle,
