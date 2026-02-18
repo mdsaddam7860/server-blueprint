@@ -90,9 +90,18 @@ async function syncHubspotContactToServiceM8Client() {
         ],
       },
     ];
+    const properties = [
+      "createdate",
+      "lastmodifieddate",
+      "email",
+      "firstname",
+      "lastname",
+      "phone",
+      "company",
+    ];
 
-    const contactStream = hubspotGenerator("/crm/v3/objects/contacts", {
-      properties: contactProperties(),
+    const contactStream = hubspotGenerator(endpoint, {
+      properties: properties,
       filterGroups,
     });
 
