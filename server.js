@@ -9,6 +9,7 @@ import { getHubspotClient } from "./src/configs/hubspot.config.js";
 
 // Start the server, For CI/CD deployments remove deploy.yml from .gitignore
 // npm i express axios node-cron winston winston-daily-rotate-file dotenv @mohammadsaddam-dev/hubspot-toolkit
+// remove git from your repo rmdir /s /q .git
 
 const PORT = process.env.PORT || 5000;
 
