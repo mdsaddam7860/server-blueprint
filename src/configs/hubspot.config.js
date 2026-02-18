@@ -19,7 +19,7 @@ function getHubspotClient() {
 function getHSAxios() {
   if (axiosInstance) return axiosInstance;
   return (axiosInstance = axios.create({
-    baseURL: "https://api.hubapi.com/",
+    baseURL: process.env.HUBSPOT_BASE_URL,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
