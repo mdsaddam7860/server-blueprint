@@ -1,8 +1,4 @@
-import dotenv from "dotenv";
-import path from "path";
-dotenv.config({
-  path: path.join(process.cwd(), ".env"),
-});
+import "./bootstrap.js";
 import { app } from "./src/app.js";
 import { logger } from "./src/index.js";
 import { getHubspotClient } from "./src/configs/hubspot.config.js";
@@ -24,7 +20,14 @@ function serverInit() {
 
     init(); // Initialize other services and forget about them
   } catch (error) {
-    logger.error("❌ Critical startup failure:", error);
+    logger.error("❌ Critical startup failure:", {
+      status: error?.status,
+      response: error.response?.data,
+      method: error?.method,
+      url: error?.config?.url,
+      message: error.message,
+      stack: error?.stack || error,
+    });
   }
 }
 
